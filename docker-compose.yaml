@@ -1,24 +1,24 @@
 version: '2'
 services:
-  moodledb_rpi_alpine:
-    image: arm32v7/postgres
-    container_name: moodledb_rpi_alpine
-    env_file: .env
+  moodledb_rpi:
+    image: arm32v7/postgres:11
+    container_name: moodledb_rpi
     environment:
-    # MAKE SURE THIS ONE SAME WITH THE MOODLE
-    - POSTGRES_DATABASE=$DATABASE
-    - POSTGRES_USER=$USER
-    - POSTGRES_PASSWORD=$PASSWORD
-  moodle_rpi_alpine:
-    image: treehouses/moodle:rpi-alpine-latest
-    container_name: moodle_rpi_alpine
+          # MAKE SURE THIS ONE SAME WITH THE MOODLE
+      - POSTGRES_DATABASE=moodle
+      - POSTGRES_USER=moodle
+      - POSTGRES_PASSWORD=moodle
+  moodle_rpi:
+    image: treehouses/moodle:rpi-latest
+    container_name: moodle_rpi
     ports:
       - "80:80"
     environment:
-    - MOODOLE_DB_URL=moodledb_rpi_alpine
-    - MOODOLE_DB_NAME=$DATABASE
-    - MOODOLE_DB_USER=$USER
-    - MOODOLE_DB_PASS=$PASSWORD
-    - MOODOLE_DB_PORT=5432
-    - MOODOLE_MAX_BODY_SIZE=200M
-    - MOODOLE_BODY_TIMEOUT=300s
+      - NGINX_PORT=80
+      - MOODOLE_DB_URL=moodledb_rpi
+      - MOODOLE_DB_NAME=moodle
+      - MOODOLE_DB_USER=moodle
+      - MOODOLE_DB_PASS=moodle
+      - MOODOLE_DB_PORT=5432
+      - MOODOLE_MAX_BODY_SIZE=200M
+      - MOODOLE_BODY_TIMEOUT=300s
