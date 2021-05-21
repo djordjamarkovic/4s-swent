@@ -3,6 +3,8 @@ services:
   moodledb_rpi:
     image: arm32v7/postgres:11
     container_name: moodledb_rpi
+    ports: 
+      - "5432:5432"
     environment:
           # MAKE SURE THIS ONE SAME WITH THE MOODLE
       - POSTGRES_DATABASE=moodle
